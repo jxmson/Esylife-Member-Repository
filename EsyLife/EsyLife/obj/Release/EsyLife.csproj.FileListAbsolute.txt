@@ -1,0 +1,9 @@
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Release\EsyLife.exe.config
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Release\EsyLife.exe
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Release\EsyLife.pdb
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.csprojAssemblyReference.cache
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.Form1.resources
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.Properties.Resources.resources
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.csproj.GenerateResource.cache
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.exe
+C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Release\EsyLife.pdb
