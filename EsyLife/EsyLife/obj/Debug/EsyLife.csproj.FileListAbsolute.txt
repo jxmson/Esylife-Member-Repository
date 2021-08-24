@@ -1,9 +1,0 @@
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Debug\EsyLife.exe.config
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Debug\EsyLife.exe
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\bin\Debug\EsyLife.pdb
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.csprojAssemblyReference.cache
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.Form1.resources
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.Properties.Resources.resources
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.csproj.GenerateResource.cache
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.exe
-C:\Users\Nthabeleng Jimson\Desktop\EsyLife\EsyLife\obj\Debug\EsyLife.pdb
