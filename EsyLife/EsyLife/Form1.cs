@@ -1,184 +1,200 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EsyLife
 {
     public partial class Form1 : Form
     {
-        Members member = new Members();
+        NewMembers newmember = new NewMembers();
         public Form1()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            DataTable dt = member.SelectData();
+
+
+            DataTable dt = newmember.SelectData();
             dgvMembers.DataSource = dt;
-
-            txtSearchName.Enabled = txtSearchSurname.Enabled = txtSearchBM.Enabled = false;
-            lblName.Enabled = lblSurname.Enabled = lblBM.Enabled = false;
-
-
-        }
-
-        private void radBM_CheckedChanged(object sender, EventArgs e)
-        {
-
-            txtSearchBM.Enabled = true;
-            lblBM.Enabled = true;
-        }
-        private void radName_CheckedChanged(object sender, EventArgs e)
-        {
-            txtSearchName.Enabled =  true;
-            lblName.Enabled =  true;
-        }
-
-        private void radSurname_CheckedChanged(object sender, EventArgs e)
-        {
-            txtSearchSurname.Enabled = true;
-            lblSurname.Enabled = true;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (radBM.Checked)
-            {
-                DataTable dt = member.SelectBM(txtSearchBM.Text);
-                dgvMembers.DataSource = dt;
-                radName.Checked = radSurname.Checked = false;
-
-            }
-            else if (radName.Checked)
-            {
-                DataTable dt = member.SelectName(txtSearchName.Text);
-                dgvMembers.DataSource = dt;
-                radBM.Checked = radSurname.Checked = false;
-            }
-            else if (radSurname.Checked)
-            {
-                DataTable dt = member.SelectSurname(txtSearchSurname.Text);
-                dgvMembers.DataSource = dt;
-                radBM.Checked = radName.Checked = false;
-            }
-            txtSearchBM.Clear(); txtSearchName.Clear(); txtSearchSurname.Clear();
-             radBM.Checked = radName.Checked = radSurname.Checked = false;
-            txtSearchName.Enabled = txtSearchSurname.Enabled = txtSearchBM.Enabled = false;
-            lblName.Enabled = lblSurname.Enabled = lblBM.Enabled = false;
+            DataTable dt = newmember.Search(txtSearch.Text);
+            dgvMembers.DataSource = dt;
+           
+            txtSearch.Clear();
         }
-        private void btnAddMember_Click(object sender, EventArgs e)
+         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtAddBM.Text))
-                MessageBox.Show("Please add a BM Number for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (String.IsNullOrEmpty(txtAddName.Text))
+            this.Close();
+        }
+        private void dgvMembers_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            txtMemberID.Text = dgvMembers.Rows[rowIndex].Cells[0].Value.ToString();
+            txtAddName1.Text = dgvMembers.Rows[rowIndex].Cells[1].Value.ToString();
+            txtAddSurname1.Text = dgvMembers.Rows[rowIndex].Cells[2].Value.ToString();
+            txtAddContact1.Text = dgvMembers.Rows[rowIndex].Cells[3].Value.ToString();
+            txtMemberSponsor.Text = dgvMembers.Rows[rowIndex].Cells[4].Value.ToString();
+        }
+
+        private void grpSearch_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegMembers_Click(object sender, EventArgs e)
+        {
+            frmMembers members = new frmMembers();
+            this.Hide();
+            members.ShowDialog();
+        }
+
+        private void dgvMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnAssignBM_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtMemberID.Text))
+                MessageBox.Show("Please select a member to assign a BM. Double click on a member from the list to select the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                frmAdd add = new frmAdd();               
+                add.txtAddContact.Text = txtAddContact1.Text;
+                add.txtAddID.Text = txtMemberID.Text;
+                add.txtAddName.Text = txtAddName1.Text;
+                add.txtAddSponsor.Text = txtMemberSponsor.Text;
+                add.txtAddSurname.Text = txtAddSurname1.Text;
+                add.lblAdd.Text = "Assign member BM Number";
+                this.Hide();
+                add.ShowDialog();
+                
+            }
+        }
+
+        private void btnAddUn_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtMemberID.Text))
+                MessageBox.Show("Please add an ID Number for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (String.IsNullOrEmpty(txtAddName1.Text))
                 MessageBox.Show("Please add a Name for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (String.IsNullOrEmpty(txtAddSurname.Text))
+            else if (String.IsNullOrEmpty(txtAddSurname1.Text))
                 MessageBox.Show("Please add a Surname for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (String.IsNullOrEmpty(txtAddContact.Text))
+            else if (String.IsNullOrEmpty(txtAddContact1.Text))
                 MessageBox.Show("Please add a Contact for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (txtAddBM.Text.Substring(0, 2) == "BM" || txtAddBM.Text.Substring(0, 2) == "NF")
+            else if (String.IsNullOrEmpty(txtMemberSponsor.Text))
+                MessageBox.Show("Please add a Sponsor for the member", "Empty field", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if(txtMemberSponsor.Text.Substring(0, 2) == "BM" || txtMemberSponsor.Text.Substring(0, 2) == "NF" || txtMemberSponsor.Text.Substring(0, 2) == "bm" || txtMemberSponsor.Text.Substring(0, 2) == "nf")
             {
                 try
                 {
-                    member = new Members(txtAddBM.Text.ToUpper(), txtAddName.Text, txtAddSurname.Text, int.Parse(txtAddContact.Text));
+                    newmember = new NewMembers(txtMemberID.Text.ToUpper(), txtAddName1.Text, txtAddSurname1.Text, int.Parse(txtAddContact1.Text), txtMemberSponsor.Text.ToUpper());
 
-                    bool insertsuccess = member.InsertData(member);
+                    bool insertsuccess = newmember.InsertData(newmember);
                     if (insertsuccess)
-                        MessageBox.Show("Member added successfully", "Successfully added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        MessageBox.Show("New member added successfully. Don't forget assign them a BM Number.", "Successfully added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     else
-                        MessageBox.Show("Failed to add member. \nTry again. If the problem persists, contact your administrator.", "Not added!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        MessageBox.Show("Failed to add new member. \nTry again. If the problem persists, contact your administrator.", "Not added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
 
-                    DataTable dt = member.SelectData();
+                    DataTable dt = newmember.SelectData();
                     dgvMembers.DataSource = dt;
 
-                    txtAddBM.Clear(); txtAddName.Clear(); txtAddSurname.Clear(); txtAddContact.Clear();
+                    txtMemberID.Clear(); txtAddName1.Clear(); txtAddSurname1.Clear(); txtAddContact1.Clear(); txtMemberSponsor.Clear();
                 }
                 catch
                 {
-                    MessageBox.Show("Please enter a valid contact number. A contact number must be all numerics.", "Invalid Contact Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Please make sure the format of each entry field is correct. \nContact number may not contain any letters", "Incorrect format detected.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-               
-
             }
             else
-                MessageBox.Show("Please enter a valid BM or NF number. A valid BM number is prefixed by 'BM' and an NF Number by 'NF' ", "Invalid BM Number", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Please enter a valid BM or NF number for the sponsor. A valid BM number is prefixed by 'BM' and an NF Number by 'NF' ", "Invalid sponsor BM Number", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnEdit1_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(txtMemberID.Text) && String.IsNullOrEmpty(txtAddName1.Text))
+            {
+                MessageBox.Show("Please select a member to edit.\nDouble click on a record to auto-fill the members information.", "Nothing to edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                newmember.ID_Number = txtMemberID.Text;
+                newmember.Name = txtAddName1.Text;
+                newmember.Surname = txtAddSurname1.Text;
+                newmember.ContactNum = int.Parse(txtAddContact1.Text);
+                newmember.Sponsor = txtMemberSponsor.Text;
 
-            if (String.IsNullOrEmpty(txtAddBM.Text))
+                bool updatesuccess =  newmember.UpdateData(newmember);
+                if (updatesuccess)
+                    MessageBox.Show("Member edited successfully", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                else
+                    MessageBox.Show("Failed to edit member. \nTry again. If the problem persists, contact your administrator.", "Failed to edit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                DataTable dt = newmember.SelectData();
+                dgvMembers.DataSource = dt;
+
+                txtMemberID.Clear(); txtAddName1.Clear(); txtAddSurname1.Clear(); txtAddContact1.Clear(); txtMemberSponsor.Clear();
+            }
+        }
+
+        private void btnDelete1_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtMemberID.Text))
             {
                 MessageBox.Show("Please select a member to delete.\nDouble click on a record to auto-fill the members information.", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                member.BM_Number = txtAddBM.Text;
+                newmember.ID_Number = txtMemberID.Text;
+                newmember.Name = txtAddName1.Text;
+                newmember.Surname = txtAddSurname1.Text;
+                newmember.ContactNum = int.Parse(txtAddContact1.Text);
+                newmember.Sponsor = txtMemberSponsor.Text;
+
                 bool deletesuccess;
                 if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this member?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
-                    deletesuccess = member.DeleteData(member);
+                    deletesuccess = newmember.DeleteData(newmember);
 
                     if (deletesuccess)
                         MessageBox.Show("Member deleted successfully", "Successfully deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     else
                         MessageBox.Show("Failed to delete member. \nTry again. If the problem persists, contact your administrator.", "Failed to delete", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
-                DataTable dt = member.SelectData();
+                DataTable dt = newmember.SelectData();
                 dgvMembers.DataSource = dt;
 
-                txtAddBM.Clear(); txtAddName.Clear(); txtAddSurname.Clear(); txtAddContact.Clear();
+                txtMemberID.Clear(); txtAddName1.Clear(); txtAddSurname1.Clear(); txtAddContact1.Clear(); txtMemberSponsor.Clear();
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            txtMemberID.Clear(); txtAddName1.Clear(); txtAddSurname1.Clear(); txtAddContact1.Clear(); txtMemberSponsor.Clear();
         }
 
-        private void btnEdit_Click_1(object sender, EventArgs e)
+        private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtAddBM.Text))
-            {
-                MessageBox.Show("Please select a member to edit.\nDouble click on a record to auto-fill the members information.", "Nothing to edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            if (String.IsNullOrEmpty(txtSearch.Text))
+                MessageBox.Show("Please enter a keyword to search for", "Empty search", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
             {
-                member.BM_Number = txtAddBM.Text;
-                member.Name = txtAddName.Text;
-                member.Surname = txtAddSurname.Text;
-                member.ContactNum = int.Parse(txtAddContact.Text);
-
-                bool updatesuccess = member.UpdateData(member);
-                if (updatesuccess)
-                    MessageBox.Show("Member edited successfully", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                else
-                    MessageBox.Show("Failed to edit member. \nTry again. If the problem persists, contact your administrator.", "Failed to edit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
-                DataTable dt = member.SelectData();
+                DataTable dt = newmember.Search(txtSearch.Text);
                 dgvMembers.DataSource = dt;
-
-                txtAddBM.Clear(); txtAddName.Clear(); txtAddSurname.Clear(); txtAddContact.Clear();
             }
         }
 
-        private void dgvMembers_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void btnViewAll_Click(object sender, EventArgs e)
         {
-            int rowIndex = e.RowIndex;
-            txtAddBM.Text = dgvMembers.Rows[rowIndex].Cells[0].Value.ToString();
-            txtAddName.Text = dgvMembers.Rows[rowIndex].Cells[1].Value.ToString();
-            txtAddSurname.Text = dgvMembers.Rows[rowIndex].Cells[2].Value.ToString();
-            txtAddContact.Text = dgvMembers.Rows[rowIndex].Cells[3].Value.ToString();
+            DataTable dt = newmember.SelectData();
+            dgvMembers.DataSource = dt;
         }
 
-        private void grpSearch_Enter(object sender, EventArgs e)
+        private void btnPurchase_Click(object sender, EventArgs e)
         {
 
         }

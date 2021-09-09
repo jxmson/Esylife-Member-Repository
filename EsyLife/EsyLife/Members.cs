@@ -11,12 +11,14 @@ namespace EsyLife
 {
     class Members
     {
-        public Members(string bm, string name, string surname, int contact)
+        public Members(string bm, string ID, string name, string surname, int contact, string sponsor)
         {
             BM_Number = bm;
             Name = name;
             Surname = surname;
             ContactNum = contact;
+            ID_Number = ID;
+            Sponsor = sponsor;
         }
         public Members()
         {
@@ -27,6 +29,8 @@ namespace EsyLife
         public string Name { get; set; }
         public string Surname { get; set; }
         public int ContactNum { get; set; }
+        public string Sponsor { get; set; }
+        public string ID_Number { get; set; }
 
         static string myconnstring = ConfigurationManager.ConnectionStrings["connstring"].ConnectionString;
 
@@ -39,7 +43,7 @@ namespace EsyLife
             try
             {
                 //2.SQL query
-                string sql = "SELECT * FROM Member";
+                string sql = "SELECT * FROM Members";
                 SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
                 //3.Creating Adapter
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -55,86 +59,7 @@ namespace EsyLife
                 conn.Close();
             }
             return dt;
-        }
-        //selecting 1 record from the database
-        public DataTable SelectBM(string BM)
-        {
-            SqlConnection conn = new SqlConnection(myconnstring);
-            DataTable dt = new DataTable();
-            try
-            {
-                //2.SQL query
-                string sql = "SELECT * FROM Member WHERE BM_Number=@BM_Number";
-                SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
-                cmd.Parameters.AddWithValue("@BM_Number", BM);
-                //3.Creating Adapter
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                conn.Open();
-                adapter.Fill(dt);
-
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-
-        }
-        public DataTable SelectName(string name)
-        {
-            SqlConnection conn = new SqlConnection(myconnstring);
-            DataTable dt = new DataTable();
-            try
-            {
-                //2.SQL query
-                string sql = "SELECT * FROM Member WHERE Name=@Name";
-                SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
-                cmd.Parameters.AddWithValue("@Name", name);
-                //3.Creating Adapter
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                conn.Open();
-                adapter.Fill(dt);
-
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-
-        }
-        public DataTable SelectSurname(string sname)
-        {
-            SqlConnection conn = new SqlConnection(myconnstring);
-            DataTable dt = new DataTable();
-            try
-            {
-                //2.SQL query
-                string sql = "SELECT * FROM Member WHERE Surname=@Surname";
-                SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
-                cmd.Parameters.AddWithValue("@Surname", sname);
-                //3.Creating Adapter
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                conn.Open();
-                adapter.Fill(dt);
-
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-
-        }
+        }     
 
         //inserting Data into Database
         public bool InsertData(Members m)
@@ -147,14 +72,16 @@ namespace EsyLife
             try
             {
                 //2.SQL query
-                string sql = "INSERT INTO Member (BM_Number, Name, Surname, Contact) " +
-                    "VALUES (@BM_Number, @Name, @Surname, @Contact)";
+                string sql = "INSERT INTO Members (BM_Number, Name, Surname, ID_Number, Contact_Number, Sponsor) " +
+                    "VALUES (@BM_Number, @Name, @Surname,@ID, @Contact, @Sponsor)";
                 SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
                 //3.Create parameter to add data
                 cmd.Parameters.AddWithValue("@BM_Number", m.BM_Number);
                 cmd.Parameters.AddWithValue("@Name", m.Name);
                 cmd.Parameters.AddWithValue("@Surname", m.Surname);
+                cmd.Parameters.AddWithValue("@ID", m.ID_Number);
                 cmd.Parameters.AddWithValue("@Contact", m.ContactNum);
+                cmd.Parameters.AddWithValue("@Sponsor", m.Sponsor);
 
                 conn.Open();
                 int rows = cmd.ExecuteNonQuery(); 
@@ -188,14 +115,16 @@ namespace EsyLife
             try
             {
                 //2.SQL query
-                string sql = "UPDATE Member SET BM_Number=@BM_Number, Name=@Name, Surname=@Surname, Contact=@Contact "+
+                string sql = "UPDATE Members SET BM_Number=@BM_Number, Name=@Name, Surname=@Surname, ID_Number=@ID_Number, Contact=@Contact, Sponsor=@Sponsor "+
                     "WHERE BM_Number=@BM_Number";
                 SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
                 //3.Create parameter to add data
                 cmd.Parameters.AddWithValue("@BM_Number", m.BM_Number);
                 cmd.Parameters.AddWithValue("@Name", m.Name);
                 cmd.Parameters.AddWithValue("@Surname", m.Surname);
+                cmd.Parameters.AddWithValue("@ID_Number", m.ID_Number);
                 cmd.Parameters.AddWithValue("@Contact", m.ContactNum);
+                cmd.Parameters.AddWithValue("@Sponsor", m.Sponsor);
 
                 conn.Open();
                 int rows = cmd.ExecuteNonQuery();
@@ -229,7 +158,7 @@ namespace EsyLife
             try
             {
                 //2.SQL query
-                string sql = "DELETE FROM Member WHERE BM_Number=@BM_Number";
+                string sql = "DELETE FROM Members WHERE BM_Number=@BM_Number";
                 SqlCommand cmd = new SqlCommand(sql, conn); //Creating SQL command
                 //3.Create parameter to add data
                 cmd.Parameters.AddWithValue("@BM_Number", m.BM_Number);
@@ -255,6 +184,29 @@ namespace EsyLife
                 conn.Close();
             }
             return isSuccess;
+        }
+        public DataTable Search(string keyword)
+        {
+            SqlConnection conn = new SqlConnection(myconnstring);
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string sql = "select * from Members where Name like '%'+@keyword+'%' or Surname like '%'+@keyword+'%' or BM_Number like '%'+@keyword+'%'";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@keyword", keyword);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                conn.Open();
+                adapter.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
         }
     }
 }
