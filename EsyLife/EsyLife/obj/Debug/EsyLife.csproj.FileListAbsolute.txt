@@ -30,6 +30,6 @@ C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\Es
 C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmLogin.resources
 C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmMembers.resources
 C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmPurchase.resources
-C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmStock.resources
 C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmEditDelete.resources
 C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmProducts.resources
+C:\Users\Nthabeleng Jimson\Documents\GitHub\Esylife-Member-Repository\EsyLife\EsyLife\obj\Debug\EsyLife.frmFinanceReport.resources

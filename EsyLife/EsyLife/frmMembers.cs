@@ -14,6 +14,7 @@ namespace EsyLife
     {
         Members member = new Members();
         frmEditDelete editdelete = new frmEditDelete();
+        frmPurchase purchase = new frmPurchase();
         public frmMembers()
         {
             InitializeComponent();
@@ -91,12 +92,31 @@ namespace EsyLife
         private void dgvRegisteredMembers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int rowIndex = e.RowIndex;
+            purchase.lblPurchasefor.Text = "Purchase for: ";/* + dgvRegisteredMembers.Rows[rowIndex].Cells[0].Value.ToString() + " " + dgvRegisteredMembers.Rows[rowIndex].Cells[1].Value.ToString();*/
+            purchase.lblPurchasefor.Text = "wtf";
             editdelete.txtEditBM.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[0].Value.ToString();
             editdelete.txtEditName.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[1].Value.ToString();
             editdelete.txtEditSurname.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[2].Value.ToString();
             editdelete.txtEditID.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[3].Value.ToString();
             editdelete.txtEditContact.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[4].Value.ToString();
             editdelete.txtEditSponsor.Text = dgvRegisteredMembers.Rows[rowIndex].Cells[5].Value.ToString();
+        }
+
+        private void btnRegPurchase_Click(object sender, EventArgs e)
+        {
+            if (dgvRegisteredMembers.SelectedRows.Count == 0)
+                MessageBox.Show("Select a memeber that is purchasing", "No member selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                frmPurchase frm = new frmPurchase();
+                this.Hide();
+                frm.ShowDialog();
+            }
+        }
+
+        private void dgvRegisteredMembers_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
         }
     }
 }

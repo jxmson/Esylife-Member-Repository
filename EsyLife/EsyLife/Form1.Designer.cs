@@ -58,6 +58,7 @@
             this.txtMemberSponsor = new System.Windows.Forms.TextBox();
             this.txtMemberID = new System.Windows.Forms.TextBox();
             this.grpAdd = new System.Windows.Forms.GroupBox();
+            this.btnAdmin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpSearch.SuspendLayout();
@@ -82,7 +83,7 @@
             // 
             this.dgvMembers.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMembers.Location = new System.Drawing.Point(436, 127);
+            this.dgvMembers.Location = new System.Drawing.Point(436, 139);
             this.dgvMembers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvMembers.Name = "dgvMembers";
             this.dgvMembers.Size = new System.Drawing.Size(539, 429);
@@ -115,7 +116,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(433, 105);
+            this.label2.Location = new System.Drawing.Point(433, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 18);
             this.label2.TabIndex = 24;
@@ -181,7 +182,7 @@
             // 
             // btnRegMembers
             // 
-            this.btnRegMembers.Location = new System.Drawing.Point(49, 519);
+            this.btnRegMembers.Location = new System.Drawing.Point(33, 521);
             this.btnRegMembers.Name = "btnRegMembers";
             this.btnRegMembers.Size = new System.Drawing.Size(138, 35);
             this.btnRegMembers.TabIndex = 26;
@@ -191,7 +192,7 @@
             // 
             // btnPurchase
             // 
-            this.btnPurchase.Location = new System.Drawing.Point(203, 522);
+            this.btnPurchase.Location = new System.Drawing.Point(247, 521);
             this.btnPurchase.Name = "btnPurchase";
             this.btnPurchase.Size = new System.Drawing.Size(138, 32);
             this.btnPurchase.TabIndex = 27;
@@ -357,7 +358,7 @@
             this.grpAdd.Controls.Add(this.lblAddName);
             this.grpAdd.Controls.Add(this.txtAddSurname1);
             this.grpAdd.Controls.Add(this.txtAddName1);
-            this.grpAdd.Location = new System.Drawing.Point(12, 116);
+            this.grpAdd.Location = new System.Drawing.Point(33, 134);
             this.grpAdd.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.grpAdd.Name = "grpAdd";
             this.grpAdd.Padding = new System.Windows.Forms.Padding(3, 6, 3, 6);
@@ -366,12 +367,26 @@
             this.grpAdd.TabStop = false;
             this.grpAdd.Text = "Member details:";
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAdmin.Location = new System.Drawing.Point(860, 97);
+            this.btnAdmin.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(115, 32);
+            this.btnAdmin.TabIndex = 25;
+            this.btnAdmin.Text = "Admin Login";
+            this.btnAdmin.UseVisualStyleBackColor = false;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1018, 582);
+            this.ClientSize = new System.Drawing.Size(1018, 673);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.grpAdd);
             this.Controls.Add(this.btnPurchase);
             this.Controls.Add(this.btnRegMembers);
@@ -383,7 +398,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Futura BdCn BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Esylife members";
@@ -429,6 +443,7 @@
         private System.Windows.Forms.TextBox txtMemberID;
         private System.Windows.Forms.GroupBox grpAdd;
         public System.Windows.Forms.DataGridView dgvMembers;
+        private System.Windows.Forms.Button btnAdmin;
     }
 }
 

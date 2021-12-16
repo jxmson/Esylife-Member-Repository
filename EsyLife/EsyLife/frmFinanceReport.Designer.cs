@@ -1,6 +1,6 @@
 ﻿namespace EsyLife
 {
-    partial class frmStock
+    partial class frmFinanceReport
     {
         /// <summary>
         /// Required designer variable.

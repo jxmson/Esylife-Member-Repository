@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace EsyLife
 {
-    public partial class frmStock : Form
+    public partial class frmFinanceReport : Form
     {
-        public frmStock()
+        public frmFinanceReport()
         {
             InitializeComponent();
         }

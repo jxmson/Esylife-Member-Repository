@@ -33,7 +33,7 @@
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
             this.btnDeleteProduct = new System.Windows.Forms.Button();
             this.btnEdit1 = new System.Windows.Forms.Button();
-            this.btnAssignBM = new System.Windows.Forms.Button();
+            this.btnBackk = new System.Windows.Forms.Button();
             this.btnAddProduct = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.lblContact = new System.Windows.Forms.Label();
@@ -41,6 +41,8 @@
             this.lblAddName = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtProductName = new System.Windows.Forms.TextBox();
+            this.txtMemberPrice = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.grpAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
@@ -53,16 +55,18 @@
             this.dgvProducts.Location = new System.Drawing.Point(387, 18);
             this.dgvProducts.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.dgvProducts.Name = "dgvProducts";
-            this.dgvProducts.Size = new System.Drawing.Size(366, 370);
+            this.dgvProducts.Size = new System.Drawing.Size(366, 286);
             this.dgvProducts.TabIndex = 23;
             this.dgvProducts.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvProducts_RowHeaderMouseDoubleClick);
             // 
             // grpAdd
             // 
+            this.grpAdd.Controls.Add(this.label1);
+            this.grpAdd.Controls.Add(this.txtMemberPrice);
             this.grpAdd.Controls.Add(this.nudQuantity);
             this.grpAdd.Controls.Add(this.btnDeleteProduct);
             this.grpAdd.Controls.Add(this.btnEdit1);
-            this.grpAdd.Controls.Add(this.btnAssignBM);
+            this.grpAdd.Controls.Add(this.btnBackk);
             this.grpAdd.Controls.Add(this.btnAddProduct);
             this.grpAdd.Controls.Add(this.btnClear);
             this.grpAdd.Controls.Add(this.lblContact);
@@ -74,14 +78,19 @@
             this.grpAdd.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.grpAdd.Name = "grpAdd";
             this.grpAdd.Padding = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.grpAdd.Size = new System.Drawing.Size(349, 286);
+            this.grpAdd.Size = new System.Drawing.Size(349, 334);
             this.grpAdd.TabIndex = 30;
             this.grpAdd.TabStop = false;
             this.grpAdd.Text = "Product details:";
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(116, 140);
+            this.nudQuantity.Location = new System.Drawing.Point(116, 182);
+            this.nudQuantity.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(213, 25);
             this.nudQuantity.TabIndex = 29;
@@ -89,18 +98,19 @@
             // btnDeleteProduct
             // 
             this.btnDeleteProduct.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDeleteProduct.Location = new System.Drawing.Point(248, 192);
+            this.btnDeleteProduct.Location = new System.Drawing.Point(246, 227);
             this.btnDeleteProduct.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.btnDeleteProduct.Name = "btnDeleteProduct";
             this.btnDeleteProduct.Size = new System.Drawing.Size(81, 32);
             this.btnDeleteProduct.TabIndex = 27;
             this.btnDeleteProduct.Text = "Delete";
             this.btnDeleteProduct.UseVisualStyleBackColor = true;
+            this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
             // 
             // btnEdit1
             // 
             this.btnEdit1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEdit1.Location = new System.Drawing.Point(136, 192);
+            this.btnEdit1.Location = new System.Drawing.Point(134, 227);
             this.btnEdit1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.btnEdit1.Name = "btnEdit1";
             this.btnEdit1.Size = new System.Drawing.Size(81, 32);
@@ -109,19 +119,20 @@
             this.btnEdit1.UseVisualStyleBackColor = true;
             this.btnEdit1.Click += new System.EventHandler(this.btnEdit1_Click);
             // 
-            // btnAssignBM
+            // btnBackk
             // 
-            this.btnAssignBM.Location = new System.Drawing.Point(180, 233);
-            this.btnAssignBM.Name = "btnAssignBM";
-            this.btnAssignBM.Size = new System.Drawing.Size(138, 32);
-            this.btnAssignBM.TabIndex = 28;
-            this.btnAssignBM.Text = "Assign BM";
-            this.btnAssignBM.UseVisualStyleBackColor = true;
+            this.btnBackk.Location = new System.Drawing.Point(178, 268);
+            this.btnBackk.Name = "btnBackk";
+            this.btnBackk.Size = new System.Drawing.Size(138, 32);
+            this.btnBackk.TabIndex = 28;
+            this.btnBackk.Text = "Back";
+            this.btnBackk.UseVisualStyleBackColor = true;
+            this.btnBackk.Click += new System.EventHandler(this.btnBackk_Click);
             // 
             // btnAddProduct
             // 
             this.btnAddProduct.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddProduct.Location = new System.Drawing.Point(25, 192);
+            this.btnAddProduct.Location = new System.Drawing.Point(23, 227);
             this.btnAddProduct.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(81, 32);
@@ -132,7 +143,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(25, 233);
+            this.btnClear.Location = new System.Drawing.Point(23, 268);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(138, 32);
             this.btnClear.TabIndex = 25;
@@ -143,7 +154,7 @@
             // lblContact
             // 
             this.lblContact.AutoSize = true;
-            this.lblContact.Location = new System.Drawing.Point(20, 142);
+            this.lblContact.Location = new System.Drawing.Point(20, 184);
             this.lblContact.Name = "lblContact";
             this.lblContact.Size = new System.Drawing.Size(55, 18);
             this.lblContact.TabIndex = 19;
@@ -183,12 +194,29 @@
             this.txtProductName.Size = new System.Drawing.Size(213, 25);
             this.txtProductName.TabIndex = 8;
             // 
+            // txtMemberPrice
+            // 
+            this.txtMemberPrice.Location = new System.Drawing.Point(116, 139);
+            this.txtMemberPrice.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.txtMemberPrice.Name = "txtMemberPrice";
+            this.txtMemberPrice.Size = new System.Drawing.Size(213, 25);
+            this.txtMemberPrice.TabIndex = 30;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 142);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 18);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Member Price";
+            // 
             // frmProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(907, 529);
+            this.ClientSize = new System.Drawing.Size(763, 382);
             this.Controls.Add(this.grpAdd);
             this.Controls.Add(this.dgvProducts);
             this.Font = new System.Drawing.Font("Futura BdCn BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -209,7 +237,7 @@
         private System.Windows.Forms.NumericUpDown nudQuantity;
         private System.Windows.Forms.Button btnDeleteProduct;
         private System.Windows.Forms.Button btnEdit1;
-        private System.Windows.Forms.Button btnAssignBM;
+        private System.Windows.Forms.Button btnBackk;
         private System.Windows.Forms.Button btnAddProduct;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label lblContact;
@@ -217,5 +245,7 @@
         private System.Windows.Forms.Label lblAddName;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.TextBox txtProductName;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtMemberPrice;
     }
 }

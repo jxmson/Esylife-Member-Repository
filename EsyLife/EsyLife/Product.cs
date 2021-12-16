@@ -11,15 +11,20 @@ namespace EsyLife
 {
     public class Product
     {
-        public Product(string name, decimal price, int quantity)
+        public Product(string name, decimal bPrice, decimal regbPrice, int quantity)
         {
             Name = name;
-            Price = price;
-            Quantity = quantity;
+            bulkPrice = bPrice;
+            regbulkPrice = regbPrice;
+            Quantity = quantity;     
         }
+        public Product()
+        {
 
+        }
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal regbulkPrice { get; set; }
+        public decimal bulkPrice { get; set; }
         public int Quantity { get; set; }
 
         static string myconnstring = ConfigurationManager.ConnectionStrings["connstring"].ConnectionString;
@@ -53,11 +58,12 @@ namespace EsyLife
             SqlConnection conn = new SqlConnection(myconnstring);
             try
             {
-                string sql = "Insert into Product (ProductName, ProductPrice, ProductQuantity) " + "values (@Name, @Price, @Quantity)";
+                string sql = "Insert into Product (ProductName, ProductPrice, MemberProductPrice, ProductQuantity) " + "values (@Name, @Price, @MemberPrice, @Quantity)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 cmd.Parameters.AddWithValue("@Name", product.Name);
-                cmd.Parameters.AddWithValue("@Price", product.Price);
+                cmd.Parameters.AddWithValue("@Price", product.bulkPrice);
+                cmd.Parameters.AddWithValue("@MemberPrice", product.regbulkPrice);
                 cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
 
                 conn.Open();
@@ -84,10 +90,11 @@ namespace EsyLife
             SqlConnection conn = new SqlConnection(myconnstring);
             try
             {
-                string sql = "Update Product set ProductName = @Name, ProductPrice = @Price, ProcutQuantity= @Quantity";
+                string sql = "Update Product set ProductName = @Name, ProductPrice = @Price, MemberProductPrice = @MemberPrice, ProcutQuantity= @Quantity";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@Name", product.Name);
-                cmd.Parameters.AddWithValue("@Price", product.Price);
+                cmd.Parameters.AddWithValue("@Price", product.bulkPrice);
+                cmd.Parameters.AddWithValue("@MemberPrice", product.regbulkPrice);
                 cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
 
                 conn.Open();
@@ -167,5 +174,85 @@ namespace EsyLife
             }
             return dt;
         }
+        public DataTable GetBulkQuantity(string name)
+        {
+
+            SqlConnection conn = new SqlConnection(myconnstring);
+            DataTable dt = new DataTable();
+
+            try
+            {
+                string sql = "select Quantity from Product where ProductName = @name";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", name);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                conn.Open();
+                adapter.Fill(dt);
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
+        public decimal GetMemberPrice(string name)
+        {
+            SqlConnection conn = new SqlConnection(myconnstring);
+            DataTable dt = new DataTable();
+            decimal price = 0;
+
+            try
+            {
+                string sql = "select MemberProductPrice from Product where ProductName = @name";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", name);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                conn.Open();
+                adapter.Fill(dt);
+                if (dt.Rows.Count > 0)
+                    price = decimal.Parse(dt.Rows[0].ToString());
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return price;
+        }
+        public decimal GetPrice(string name)
+        {
+            SqlConnection conn = new SqlConnection(myconnstring);
+            DataTable dt = new DataTable();
+            decimal price = 0;
+
+            try
+            {
+                string sql = "select ProductPrice from Product where ProductName = @name";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", name);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                conn.Open();
+                adapter.Fill(dt);
+                if (dt.Rows.Count > 0)
+                    price = decimal.Parse(dt.Rows[0].ToString());
+            }        
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return price;
+        }
+      
     }
 }

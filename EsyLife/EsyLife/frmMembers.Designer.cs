@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMembers));
             this.dgvRegisteredMembers = new System.Windows.Forms.DataGridView();
-            this.btnAdmin = new System.Windows.Forms.Button();
             this.btnRegPurchase = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnViewAll = new System.Windows.Forms.Button();
@@ -59,17 +58,7 @@
             this.dgvRegisteredMembers.TabIndex = 22;
             this.dgvRegisteredMembers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRegisteredMembers_CellContentClick);
             this.dgvRegisteredMembers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRegisteredMembers_RowHeaderMouseClick);
-            // 
-            // btnAdmin
-            // 
-            this.btnAdmin.Location = new System.Drawing.Point(154, 186);
-            this.btnAdmin.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(115, 32);
-            this.btnAdmin.TabIndex = 24;
-            this.btnAdmin.Text = "Admin";
-            this.btnAdmin.UseVisualStyleBackColor = true;
-            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            this.dgvRegisteredMembers.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRegisteredMembers_RowHeaderMouseDoubleClick);
             // 
             // btnRegPurchase
             // 
@@ -80,6 +69,7 @@
             this.btnRegPurchase.TabIndex = 25;
             this.btnRegPurchase.Text = "Purchase";
             this.btnRegPurchase.UseVisualStyleBackColor = true;
+            this.btnRegPurchase.Click += new System.EventHandler(this.btnRegPurchase_Click);
             // 
             // groupBox1
             // 
@@ -93,7 +83,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.groupBox1.Size = new System.Drawing.Size(459, 70);
+            this.groupBox1.Size = new System.Drawing.Size(533, 70);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search unregistered member by:";
@@ -101,7 +91,7 @@
             // btnViewAll
             // 
             this.btnViewAll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnViewAll.Location = new System.Drawing.Point(362, 30);
+            this.btnViewAll.Location = new System.Drawing.Point(441, 30);
             this.btnViewAll.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(86, 32);
@@ -122,7 +112,7 @@
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(279, 30);
+            this.button1.Location = new System.Drawing.Point(358, 30);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(77, 32);
@@ -136,7 +126,7 @@
             this.txtSearch.Location = new System.Drawing.Point(78, 34);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(195, 25);
+            this.txtSearch.Size = new System.Drawing.Size(274, 25);
             this.txtSearch.TabIndex = 8;
             // 
             // btnAddUn
@@ -219,7 +209,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAddUn);
             this.Controls.Add(this.btnRegPurchase);
-            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.dgvRegisteredMembers);
             this.Font = new System.Drawing.Font("Futura BdCn BT", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -235,7 +224,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnAdmin;
         private System.Windows.Forms.Button btnRegPurchase;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnViewAll;

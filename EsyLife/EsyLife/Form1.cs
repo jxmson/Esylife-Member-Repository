@@ -198,5 +198,11 @@ namespace EsyLife
         {
 
         }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.ShowDialog();
+        }
     }
 }

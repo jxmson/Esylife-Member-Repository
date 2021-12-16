@@ -47,6 +47,7 @@
             this.btnPurchaseReport.TabIndex = 24;
             this.btnPurchaseReport.Text = "Purchase Report";
             this.btnPurchaseReport.UseVisualStyleBackColor = true;
+            this.btnPurchaseReport.Click += new System.EventHandler(this.btnPurchaseReport_Click);
             // 
             // btnFinanceReport
             // 

@@ -30,7 +30,7 @@ namespace EsyLife
             {
                 try
                 {
-                    product = new Product(txtProductName.Text, decimal.Parse(txtPrice.Text), (int)nudQuantity.Value);
+                    product = new Product(txtProductName.Text, decimal.Parse(txtPrice.Text), decimal.Parse(txtMemberPrice.Text), (int)nudQuantity.Value);
 
                     bool insertsuccess = product.Insert(product);
                     if (insertsuccess)
@@ -49,22 +49,81 @@ namespace EsyLife
                 }
             }
             else
-                MessageBox.Show("Make sure that price is in the correct format. Cents must be separated by a comma (,)");
+                MessageBox.Show("Make sure that the price is in the correct format. Cents must be separated by a comma (,)");
         }
 
         private void btnEdit1_Click(object sender, EventArgs e)
         {
-            //if(String.IsNullOrEmpty(txt))
+            if(String.IsNullOrEmpty(txtProductName.Text) && String.IsNullOrEmpty(txtPrice.Text))
+            {
+                MessageBox.Show("Please select a product to edit. \nDouble click on a record to auto-fill the product's information.", "Nothing to edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                product = new Product(txtProductName.Text,decimal.Parse(txtPrice.Text), decimal.Parse(txtMemberPrice.Text), (int)nudQuantity.Value);
+
+                bool updatesuccess = product.Update(product);
+                if (updatesuccess)
+                    MessageBox.Show("Product edited successfully", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                else
+                    MessageBox.Show("Failed to edit member. \nTry again. If the probloem persists, contact our administrator.", "Failed to edit", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                DataTable dt = product.SelectData();
+                dgvProducts.DataSource = dt;
+
+                txtPrice.Clear(); txtProductName.Clear(); nudQuantity.Value = 0;
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-
+            txtPrice.Clear(); txtProductName.Clear(); nudQuantity.Value = 0;
         }
 
         private void dgvProducts_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            int rowIndex = e.RowIndex;
+            txtProductName.Text = dgvProducts.Rows[rowIndex].Cells[0].Value.ToString();
+            txtPrice.Text = dgvProducts.Rows[rowIndex].Cells[1].Value.ToString();
+            txtMemberPrice.Text = dgvProducts.Rows[rowIndex].Cells[2].Value.ToString();
+            nudQuantity.Value = decimal.Parse(dgvProducts.Rows[rowIndex].Cells[3].Value.ToString());
+        }
 
+        private void btnBackk_Click(object sender, EventArgs e)
+        {
+            frmAdmin frm = new frmAdmin();
+            this.Hide();
+            frm.ShowDialog();
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtProductName.Text))
+            {
+                MessageBox.Show("Please select a product to delete.\nDouble click on a record to auto-fill the members information.", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                product.regbulkPrice = decimal.Parse(txtMemberPrice.Text);
+                product.bulkPrice = decimal.Parse(txtPrice.Text);
+                product.Name = txtProductName.Text;
+                product.Quantity = (int)nudQuantity.Value;
+
+                bool deletesuccess;
+                if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this member?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                {
+                    deletesuccess = product.Delete(product);
+
+                    if (deletesuccess)
+                        MessageBox.Show("Member deleted successfully", "Successfully deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    else
+                        MessageBox.Show("Failed to delete member. \nTry again. If the problem persists, contact your administrator.", "Failed to delete", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                DataTable dt = product.SelectData();
+                dgvProducts.DataSource = dt;
+
+                txtPrice.Clear(); txtProductName.Clear(); nudQuantity.Value = 0;
+            }
         }
     }
 }

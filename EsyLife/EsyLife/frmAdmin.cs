@@ -20,7 +20,9 @@ namespace EsyLife
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-
+            Form1 form1 = new Form1();
+            this.Hide();
+            form1.ShowDialog();
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -28,6 +30,11 @@ namespace EsyLife
             frmProducts frm = new frmProducts();
             this.Hide();
             frm.ShowDialog();
+        }
+
+        private void btnPurchaseReport_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
