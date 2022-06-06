@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EsyLife
 {
@@ -40,24 +37,33 @@ namespace EsyLife
                 cmd.Parameters.AddWithValue("@method", report.PaymentMethod);
                 cmd.Parameters.AddWithValue("@total", report.Saletotal);
 
+                int cont = cmd.ExecuteNonQuery();
+
+                if (cont == 0)
+                    return false;
+
                 foreach (Product p in report.ProductsSold)
                 {
                     string sqlComposite = "Insert into Sales_Products(PurchaseNumber, ProductID)" + "values (@purchase, @product)";
                     SqlCommand cmd2 = new SqlCommand(sqlComposite, conn);
-                    cmd.Parameters.AddWithValue("@purchase", report);
+                    cmd2.Parameters.AddWithValue("@purchase", report.PurchaseNumber);
+                    cmd2.Parameters.AddWithValue("@product", "(select isnull(max(ProductID),0) + 1 from Sales_Products) ");
+                    cmd2.ExecuteNonQuery();
                 }
-                
-                
+
+
 
             }
             catch
             {
-
+                isSuccess = false;
             }
             finally
             {
 
             }
+
+            return isSuccess;
         }
         public bool InsertProductList(Sale report)
         {
@@ -65,9 +71,24 @@ namespace EsyLife
             SqlConnection conn = new SqlConnection(myconnstring);
             try
             {
+                SqlCommand cmd2;
                 string sql = "";
+                if (report.ProductsSold != null)
+                {
+                    foreach (Product p in report.ProductsSold)
+                    {
+                        sql = "Insert into Sales_Products(PurchaseNumber, ProductID)" + "values (@purchase, @product)";
+                        cmd2 = new SqlCommand(sql, conn);
+                        cmd2.Parameters.AddWithValue("@purchase", report.PurchaseNumber);
+                        cmd2.Parameters.AddWithValue("@product", "(select isnull(max(ProductID),0) + 1 from Sales_Products) ");
+                        cmd2.ExecuteNonQuery();
+                    }
+                }
             }
-            return 
+            catch {
+                isSuccess = false;
+            }
+            return isSuccess;
         }
 
     }
